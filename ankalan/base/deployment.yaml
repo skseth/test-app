@@ -24,7 +24,5 @@ spec:
           value: "spring-boot-k8s"
         - name: SERVER_PORT
           value: "8080"
-        volumeMounts:
-          - mountPath: /config
-            name: somemount
+
 
