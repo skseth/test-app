@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ankalan
+  namespace: argocd # Namespace where ArgoCD is installed
+spec:
+  project: test # Project the app belongs to
+  source:
+    repoURL: https://github.com/skseth/test-app.git
+    targetRevision: HEAD # Git branch, tag, or commit SHA
+    path: ankalan/overlays/prod-mndc-active # Path within the repo containing manifests
+  destination:
+    server: https://kubernetes.default.svc # Cluster URL
+    namespace: mndc-ankalan # Target namespace in the cluster
+  syncPolicy:
+    automated: # Automatically sync when Git changes are detected
+      prune: true # Delete resources no longer in Git
+      selfHeal: true # Re-sync when cluster state deviates from Git
+
+
