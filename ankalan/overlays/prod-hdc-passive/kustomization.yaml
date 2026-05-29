@@ -4,6 +4,25 @@ kind: Kustomization
 namespace: hdc-ankalan
 
 resources:
-- ../../base
+- ../../../base
 
+labels:
+  - pairs:
+      app: ankalan
+    includeSelectors: true
 
+patches:
+- target:
+    kind: Deployment
+    name: appname
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: ankalan
+- target:
+    kind: Service
+    name: appname
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: ankalan

@@ -1,17 +1,19 @@
 #!/bin/bash
 
 kubectl_apply() {
-	local module overlay
+	local module namespace overlay prefix
 
 	module="$1"
 	namespace="$2"
 	overlay="$3"
+	prefix="$4"
+
 
 	kubectl apply -f - <<EOF
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ankalan
+  name: $prefix-$module
   namespace: argocd
 spec:
   project: test
@@ -29,9 +31,12 @@ spec:
 EOF
 }
 
+dr_modules=(
+	ankalan-dr
+)
+
 modules=(
 ankalan
-ankalan-dr
 cs-api
 age-prediction-model
 name-matcher-api
@@ -47,8 +52,16 @@ mfc
 
 apply_all_modules() {
 	for module in "${modules[@]}"; do
-		kubectl_apply "$module" hdc-ankalan prod-hdc-active
-		kubectl_apply "$module" mndc-ankalan prod-mndc-passive
+		kubectl_apply "$module" hdc-ankalan prod-hdc-active hdc
+		kubectl_apply "$module" mndc-ankalan prod-mndc-passive mndc
 	done
 }
 
+apply_all_dr_modules() {
+	for module in "${modules[@]}"; do
+		kubectl_apply "$module" hdc-ankalan prod-hdc-monitoring hdc
+		kubectl_apply "$module" mndc-ankalan prod-mndc-active mndc
+	done
+}
+
+apply_all_modules
