@@ -68,11 +68,11 @@ generate_dr_module() {
 	generate_overlay "$module" hdc-ankalan prod-hdc-monitoring
 	generate_overlay "$module" hdc-ankalan prod-hdc-recovery
 	generate_overlay "$module" hdc-ankalan prod-hdc-replay
-	generate_overlay "$module" hdc-ankalan prod-hdc-passive
+	generate_overlay "$module" hdc-ankalan prod-hdc-active
 	generate_overlay "$module" mndc-ankalan prod-mndc-monitoring
 	generate_overlay "$module" mndc-ankalan prod-mndc-recovery
 	generate_overlay "$module" mndc-ankalan prod-mndc-replay
-	generate_overlay "$module" mndc-ankalan prod-mndc-passive
+	generate_overlay "$module" mndc-ankalan prod-mndc-active
 }
 
 generate_all_modules() {
