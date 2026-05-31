@@ -58,10 +58,11 @@ apply_all_modules() {
 }
 
 apply_all_dr_modules() {
-	for module in "${modules[@]}"; do
+	for module in "${dr_modules[@]}"; do
 		kubectl_apply "$module" hdc-ankalan prod-hdc-monitoring hdc
 		kubectl_apply "$module" mndc-ankalan prod-mndc-active mndc
 	done
 }
 
 apply_all_modules
+apply_all_dr_modules
